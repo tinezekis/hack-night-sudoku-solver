@@ -5,15 +5,7 @@ describe 'Solver' do
   	solver = Solver.new(ez1)
   	solver.solve
 
-  	expected_solution = ["325618497",
-  		                   "716924385",
-  		                   "984537612",
-  							         "569482731",
-  							         "142375869",
-  							         "837169254",
-  							         "473851926",
-  							         "258796143",
-  							         "691243578"]
+  	expected_solution = ["325618497","716924385","984537612","569482731","142375869","837169254","473851926","258796143","691243578"]
 
     expect(solver.board_state).to eql expected_solution.join("\n")
   end
