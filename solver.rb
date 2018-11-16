@@ -82,6 +82,18 @@ class Solver
       end
     end
   end
+
+  def board_state
+    all_values = []
+    @board.each do |cell|
+      value = cell.value ? cell.value : '.'
+      all_values << value
+    end
+    board_state = all_values.each_slice(9).to_a
+    board_state.map! do |row|
+      row.join('')
+    end
+  end
 end
 
 class Cell
@@ -149,6 +161,7 @@ puts "Easy Puzzle 1:"
 solver = Solver.new
 solver.generate_cells_from_puzzle('puzzles/easy_01.txt')
 puts "#{solver.cells_unsolved.count} initially unsolved"
+puts solver.board_state
 solver.solve
 if solver.solved?
   puts "Solved!"
@@ -156,136 +169,137 @@ else
   puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
 end
 puts ''
+puts solver.board_state
 
-puts "Easy Puzzle 2:"
-solver = Solver.new
-solver.generate_cells_from_puzzle('puzzles/easy_02.txt')
-puts "#{solver.cells_unsolved.count} initially unsolved"
-solver.solve
-if solver.solved?
-  puts "Solved!"
-else
-  puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
-end
-puts ''
+# puts "Easy Puzzle 2:"
+# solver = Solver.new
+# solver.generate_cells_from_puzzle('puzzles/easy_02.txt')
+# puts "#{solver.cells_unsolved.count} initially unsolved"
+# solver.solve
+# if solver.solved?
+#   puts "Solved!"
+# else
+#   puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
+# end
+# puts ''
 
-puts "Easy Puzzle 3:"
-solver = Solver.new
-solver.generate_cells_from_puzzle('puzzles/easy_03.txt')
-puts "#{solver.cells_unsolved.count} initially unsolved"
-solver.solve
-if solver.solved?
-  puts "Solved!"
-else
-  puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
-end
-puts ''
+# puts "Easy Puzzle 3:"
+# solver = Solver.new
+# solver.generate_cells_from_puzzle('puzzles/easy_03.txt')
+# puts "#{solver.cells_unsolved.count} initially unsolved"
+# solver.solve
+# if solver.solved?
+#   puts "Solved!"
+# else
+#   puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
+# end
+# puts ''
 
-puts "Easy Puzzle 4:"
-solver = Solver.new
-solver.generate_cells_from_puzzle('puzzles/easy_04.txt')
-puts "#{solver.cells_unsolved.count} initially unsolved"
-solver.solve
-if solver.solved?
-  puts "Solved!"
-else
-  puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
-end
-puts ''
+# puts "Easy Puzzle 4:"
+# solver = Solver.new
+# solver.generate_cells_from_puzzle('puzzles/easy_04.txt')
+# puts "#{solver.cells_unsolved.count} initially unsolved"
+# solver.solve
+# if solver.solved?
+#   puts "Solved!"
+# else
+#   puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
+# end
+# puts ''
 
-puts "Medium Puzzle 1:"
-solver = Solver.new
-solver.generate_cells_from_puzzle('puzzles/medium_01.txt')
-puts "#{solver.cells_unsolved.count} initially unsolved"
-solver.solve
-if solver.solved?
-  puts "Solved!"
-else
-  puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
-end
-puts ''
+# puts "Medium Puzzle 1:"
+# solver = Solver.new
+# solver.generate_cells_from_puzzle('puzzles/medium_01.txt')
+# puts "#{solver.cells_unsolved.count} initially unsolved"
+# solver.solve
+# if solver.solved?
+#   puts "Solved!"
+# else
+#   puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
+# end
+# puts ''
 
-puts "Medium Puzzle 2:"
-solver = Solver.new
-solver.generate_cells_from_puzzle('puzzles/medium_02.txt')
-puts "#{solver.cells_unsolved.count} initially unsolved"
-solver.solve
-if solver.solved?
-  puts "Solved!"
-else
-  puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
-end
-puts ''
+# puts "Medium Puzzle 2:"
+# solver = Solver.new
+# solver.generate_cells_from_puzzle('puzzles/medium_02.txt')
+# puts "#{solver.cells_unsolved.count} initially unsolved"
+# solver.solve
+# if solver.solved?
+#   puts "Solved!"
+# else
+#   puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
+# end
+# puts ''
 
-puts "Medium Puzzle 3:"
-solver = Solver.new
-solver.generate_cells_from_puzzle('puzzles/medium_03.txt')
-puts "#{solver.cells_unsolved.count} initially unsolved"
-solver.solve
-if solver.solved?
-  puts "Solved!"
-else
-  puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
-end
-puts ''
+# puts "Medium Puzzle 3:"
+# solver = Solver.new
+# solver.generate_cells_from_puzzle('puzzles/medium_03.txt')
+# puts "#{solver.cells_unsolved.count} initially unsolved"
+# solver.solve
+# if solver.solved?
+#   puts "Solved!"
+# else
+#   puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
+# end
+# puts ''
 
-puts "Hard Puzzle 1:"
-solver = Solver.new
-solver.generate_cells_from_puzzle('puzzles/hard_01.txt')
-puts "#{solver.cells_unsolved.count} initially unsolved"
-solver.solve
-if solver.solved?
-  puts "Solved!"
-else
-  puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
-end
-puts ''
+# puts "Hard Puzzle 1:"
+# solver = Solver.new
+# solver.generate_cells_from_puzzle('puzzles/hard_01.txt')
+# puts "#{solver.cells_unsolved.count} initially unsolved"
+# solver.solve
+# if solver.solved?
+#   puts "Solved!"
+# else
+#   puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
+# end
+# puts ''
 
-puts "Hard Puzzle 2:"
-solver = Solver.new
-solver.generate_cells_from_puzzle('puzzles/hard_02.txt')
-puts "#{solver.cells_unsolved.count} initially unsolved"
-solver.solve
-if solver.solved?
-  puts "Solved!"
-else
-  puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
-end
-puts ''
+# puts "Hard Puzzle 2:"
+# solver = Solver.new
+# solver.generate_cells_from_puzzle('puzzles/hard_02.txt')
+# puts "#{solver.cells_unsolved.count} initially unsolved"
+# solver.solve
+# if solver.solved?
+#   puts "Solved!"
+# else
+#   puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
+# end
+# puts ''
 
-puts "Evil Puzzle 1:"
-solver = Solver.new
-solver.generate_cells_from_puzzle('puzzles/evil_01.txt')
-puts "#{solver.cells_unsolved.count} initially unsolved"
-solver.solve
-if solver.solved?
-  puts "Solved!"
-else
-  puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
-end
-puts ''
+# puts "Evil Puzzle 1:"
+# solver = Solver.new
+# solver.generate_cells_from_puzzle('puzzles/evil_01.txt')
+# puts "#{solver.cells_unsolved.count} initially unsolved"
+# solver.solve
+# if solver.solved?
+#   puts "Solved!"
+# else
+#   puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
+# end
+# puts ''
 
-puts "Evil Puzzle 2:"
-solver = Solver.new
-solver.generate_cells_from_puzzle('puzzles/evil_02.txt')
-puts "#{solver.cells_unsolved.count} initially unsolved"
-solver.solve
-if solver.solved?
-  puts "Solved!"
-else
-  puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
-end
-puts ''
+# puts "Evil Puzzle 2:"
+# solver = Solver.new
+# solver.generate_cells_from_puzzle('puzzles/evil_02.txt')
+# puts "#{solver.cells_unsolved.count} initially unsolved"
+# solver.solve
+# if solver.solved?
+#   puts "Solved!"
+# else
+#   puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
+# end
+# puts ''
 
-puts "Evil Puzzle 3:"
-solver = Solver.new
-solver.generate_cells_from_puzzle('puzzles/evil_03.txt')
-puts "#{solver.cells_unsolved.count} initially unsolved"
-solver.solve
-if solver.solved?
-  puts "Solved!"
-else
-  puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
-end
-puts ''
+# puts "Evil Puzzle 3:"
+# solver = Solver.new
+# solver.generate_cells_from_puzzle('puzzles/evil_03.txt')
+# puts "#{solver.cells_unsolved.count} initially unsolved"
+# solver.solve
+# if solver.solved?
+#   puts "Solved!"
+# else
+#   puts "Not solved: #{solver.cells_unsolved.count} remaining unsolved"
+# end
+# puts ''
 
