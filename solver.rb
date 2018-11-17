@@ -36,33 +36,7 @@ class Solver
   end
 
   def box_assigner(row_index, column_index)
-    box_index = nil
-    if (0..2).include?(row_index)
-      if (0..2).include?(column_index)
-        box_index = 0
-      elsif (3..5).include?(column_index)
-        box_index = 1
-      else
-        box_index = 2
-      end
-    elsif (3..5).include?(row_index)
-      if (0..2).include?(column_index)
-        box_index = 3
-      elsif (3..5).include?(column_index)
-        box_index = 4
-      else
-        box_index = 5
-      end
-    else
-      if (0..2).include?(column_index)
-        box_index = 6
-      elsif (3..5).include?(column_index)
-        box_index = 7
-      else
-        box_index = 8
-      end
-    end
-    box_index
+    (row_index / 3) + ((column_index / 3) * 3)
   end
 
   def cells_unsolved
@@ -76,11 +50,12 @@ class Solver
   def solve
     while !solved?
       @board.each do |cell|
-        Cell.check_row(cell, @board) if cell.value.nil?
-        Cell.check_column(cell, @board) if cell.value.nil?
-        Cell.check_box(cell, @board) if cell.value.nil?
+        cell.check_row(@board) if cell.value.nil?
+        cell.check_column(@board) if cell.value.nil?
+        cell.check_box(@board) if cell.value.nil?
       end
     end
+    board_state
   end
 
   def board_state
@@ -117,42 +92,44 @@ class Cell
 * box: #{box}\n\n"
   end
 
-  def self.check_row(cell, board)
-    return unless cell.value.nil?
-    row = board.select { |c| c.row == cell.row }
-    row.each do |c|
+  def check_row(board)
+    @value = @possibilities[0] if @value.nil? && @possibilities.count == 1
+    return unless @value.nil?
+    board_row = board.select { |c| c.row == @row }
+    board_row.each do |c|
       next if c.value.nil?
-      cell.value = cell.possibilities[0] if cell.possibilities.count == 1
-      next unless cell.value.nil?
-      poss = cell.possibilities.dup
+      next unless value.nil?
+      poss = @possibilities.dup
       binding.pry if poss.delete_if { |p| p == c.value }.empty?
-      cell.possibilities.delete_if { |p| p == c.value }
+      @possibilities.delete_if { |p| p == c.value }
+      @value = @possibilities[0] if @possibilities.count == 1
     end
   end
 
-  def self.check_column(cell, board)
-    return unless cell.value.nil?
-    column = board.select { |c| c.column == cell.column }
-    column.each do |c|
+  def check_column(board)
+    return unless @value.nil?
+    board_column = board.select { |c| c.column == @column }
+    board_column.each do |c|
       next if c.value.nil?
-      cell.value = cell.possibilities[0] if cell.possibilities.count == 1
-      next unless cell.value.nil?
-      poss = cell.possibilities.dup
+      @value = @possibilities[0] if @possibilities.count == 1
+      next unless @value.nil?
+      poss = @possibilities.dup
       binding.pry if poss.delete_if { |p| p == c.value }.empty?
-      cell.possibilities.delete_if { |p| p == c.value }
+      @possibilities.delete_if { |p| p == c.value }
     end
   end
 
-  def self.check_box(cell, board)
-    return unless cell.value.nil?
-    box = board.select { |c| c.box == cell.box }
-    box.each do |c|
+  def check_box(board)
+    return unless @value.nil?
+    board_box = board.select { |c| c.box == @box }
+    binding.pry
+    board_box.each do |c|
       next if c.value.nil?
-      cell.value = cell.possibilities[0] if cell.possibilities.count == 1
-      next unless cell.value.nil?
-      poss = cell.possibilities.dup
+      @value = @possibilities[0] if @possibilities.count == 1
+      next unless @value.nil?
+      poss = @possibilities.dup
       binding.pry if poss.delete_if { |p| p == c.value }.empty?
-      cell.possibilities.delete_if { |p| p == c.value }
+      @possibilities.delete_if { |p| p == c.value }
     end
   end
 end
